@@ -19,7 +19,9 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostalCodeResource extends Resource
 {
+    protected static ?string $modelLabel = 'zipCode';
     protected static ?string $model = ModelsPostalCode::class;
+    
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 

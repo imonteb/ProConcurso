@@ -9,7 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListPostalCodes extends ListRecords
 {
     protected static string $resource = PostalCodeResource::class;
-
+    
     protected function getHeaderActions(): array
     {
         return [
