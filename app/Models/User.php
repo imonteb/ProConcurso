@@ -19,9 +19,15 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
+        'employee_code',
         'name',
+        'last_name',
+        'sexo',
         'email',
+        'phone',
+        'position_id',
         'password',
+        
     ];
 
     /**
@@ -57,4 +63,11 @@ class User extends Authenticatable
             ->map(fn (string $name) => Str::of($name)->substr(0, 1))
             ->implode('');
     }
+
+    
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
+
 }

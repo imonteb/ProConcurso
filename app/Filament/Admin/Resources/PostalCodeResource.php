@@ -8,7 +8,7 @@ use App\Models\PostalCode;
 use Awcodes\PostalCodes\Models\PostalCode as ModelsPostalCode;
 use Filament\Forms;
 use Filament\Forms\Form;
-use Filament\Infolists\Components\Section;
+use Filament\Forms\Components\Section;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Enums\FiltersLayout;
@@ -19,52 +19,58 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class PostalCodeResource extends Resource
 {
-    protected static ?string $modelLabel = 'zipCode';
+    protected static ?string $modelLabel = 'zipCodes';
+    protected static ?string $navigationGroup = 'ZipCodes';
     protected static ?string $model = ModelsPostalCode::class;
-    
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationLabel = 'ZipCodes';
+    protected static ?string $navigationIcon = 'fas-map-signs';
+    protected static ?int $navigationSort = 3;
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('country_code')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('postal_code')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('place_name')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('state_name')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('state')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('county_name')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('county_code')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('community_name')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('community_code')
-                    ->required()
-                    ->maxLength(255),
-                    Forms\Components\TextInput::make('lat')
-                    ->numeric()
-                    ->label('Latitude'),
-                    Forms\Components\TextInput::make('lng')
-                    ->numeric()
-                    ->label('Longitude'),
-                    Forms\Components\TextInput::make('accuracy')
-                    ->required()
-                    ->integer()
+                Section::make('Zip code info')
+                    ->schema([
+                        Forms\Components\TextInput::make('country_code')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('postal_code')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('place_name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('state_name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('state')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('county_name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('county_code')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('community_name')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('community_code')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('lat')
+                            ->numeric()
+                            ->label('Latitude'),
+                        Forms\Components\TextInput::make('lng')
+                            ->numeric()
+                            ->label('Longitude'),
+                        Forms\Components\TextInput::make('accuracy')
+                            ->required()
+                            ->integer()
+
+                    ])
             ]);
     }
 
@@ -74,7 +80,7 @@ class PostalCodeResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('country_code')
                     ->label('Country'),
-                
+
                 Tables\Columns\TextColumn::make('state_name')
                     ->searchable(isIndividual: true)->label('Distrito'),
                 Tables\Columns\TextColumn::make('state')->hidden(),

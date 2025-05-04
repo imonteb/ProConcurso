@@ -1,15 +1,25 @@
 <?php
 
+use App\Http\Controllers\InfoController;
+use App\Http\Controllers\ZipController;
+use Filament\Infolists\Infolist;
+use Filament\Pages\Dashboard;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('Home');
 })->name('home');
+Route::get('/info', [InfoController::class,  'index'])->name('info');
+Route::get('/zip', function () {
+    return view('zip');
+})->name('zip');
+Route::get('/info', [InfoController::class,  'index'])->name('info');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+
+Route::view('filament.dashboard.pages.dashboard', 'dashboard')
+->middleware(['auth', 'verified'])
+->name('dashboard'); 
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
@@ -19,4 +29,5 @@ Route::middleware(['auth'])->group(function () {
     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+
+require __DIR__ . '/auth.php';

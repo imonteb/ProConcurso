@@ -69,11 +69,27 @@ new #[Layout('components.layouts.auth')] class extends Component {
      */
     protected function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->email).'|'.request()->ip());
+        return Str::transliterate(Str::lower($this->email) . '|' . request()->ip());
     }
 }; ?>
 
-<div class="flex flex-col gap-6">
+<div class="flex flex-col gap-6 border border-gray-400 rounded-lg bg-zinc-300 p-6 shadow-md dark:bg-gray-800 dark:border-gray-700">
+    <!-- Logo -->
+    <div class=" items-center justify-center mb-4 bg-blue-950 dark:bg-blue-950 text-yellow-400 rounded-sm hover:bg-gray-100 md:hover:bg-gray-700 
+    md:hover:text-blue-700 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">
+        <div class="pt-2 ps-2">
+            <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <img src="{{ asset('img/imblogoCode.png') }}" class="h-16" alt="ImbCode Logo">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap text-yellow-400">Pro<span class="text-red-500">Concurso</span>
+            </a>
+        </div>
+        <div class="pb-2 items-center text-center justify-center ">
+            <a href="/" class=" items-center space-x-3 rtl:space-x-reverse text-center">
+                <span class="self-center  text-2xl font-semibold whitespace-nowrap text-yellow-400">Voltar ao Inicio</span>
+            </a>
+        </div>
+    </div>
+
     <x-auth-header :title="__('Log in to your account')" :description="__('Enter your email and password below to log in')" />
 
     <!-- Session Status -->
@@ -88,8 +104,7 @@ new #[Layout('components.layouts.auth')] class extends Component {
             required
             autofocus
             autocomplete="email"
-            placeholder="email@example.com"
-        />
+            placeholder="email@example.com" />
 
         <!-- Password -->
         <div class="relative">
@@ -99,13 +114,12 @@ new #[Layout('components.layouts.auth')] class extends Component {
                 type="password"
                 required
                 autocomplete="current-password"
-                :placeholder="__('Password')"
-            />
+                :placeholder="__('Password')" />
 
             @if (Route::has('password.request'))
-                <flux:link class="absolute end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>
-                    {{ __('Forgot your password?') }}
-                </flux:link>
+            <flux:link class="absolute  end-0 top-0 text-sm" :href="route('password.request')" wire:navigate>
+                {{ __('Forgot your password?') }}
+            </flux:link>
             @endif
         </div>
 
@@ -113,14 +127,14 @@ new #[Layout('components.layouts.auth')] class extends Component {
         <flux:checkbox wire:model="remember" :label="__('Remember me')" />
 
         <div class="flex items-center justify-end">
-            <flux:button variant="primary" type="submit" class="w-full">{{ __('Log in') }}</flux:button>
+            <flux:button variant="primary" type="submit" class="w-full  bg-blue-950 dark:bg-blue-950 text-yellow-400">{{ __('Log in') }}</flux:button>
         </div>
     </form>
 
     @if (Route::has('register'))
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
-            {{ __('Don\'t have an account?') }}
-            <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
-        </div>
+    <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
+        {{ __('Don\'t have an account?') }}
+        <flux:link :href="route('register')" wire:navigate>{{ __('Sign up') }}</flux:link>
+    </div>
     @endif
 </div>
