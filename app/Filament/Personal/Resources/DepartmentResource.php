@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Admin\Resources;
+namespace App\Filament\Personal\Resources;
 
-use App\Filament\Admin\Resources\DepartmentResource\Pages;
-use App\Filament\Admin\Resources\DepartmentResource\RelationManagers;
+use App\Filament\Personal\Resources\DepartmentResource\Pages;
+use App\Filament\Personal\Resources\DepartmentResource\RelationManagers;
 use App\Models\Department;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Auth;
 
 class DepartmentResource extends Resource
 {
@@ -23,6 +24,10 @@ class DepartmentResource extends Resource
     protected static ?string $modelLabel = 'Departamento';
     protected static ?string $pluralModelLabel = 'Departamentos';
 
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('user_id', Auth::user()->id);
+    }
 
     public static function form(Form $form): Form
     {
@@ -44,22 +49,22 @@ class DepartmentResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->columns([
-                Tables\Columns\TextColumn::make('department_name')
-                    ->label('Departamento')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('department_description')
-                    ->label('Descrição do departamento')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-            ])
+        ->columns([
+            Tables\Columns\TextColumn::make('department_name')
+                ->label('Departamento')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('department_description')
+                ->label('Descrição do departamento')
+                ->searchable(),
+            Tables\Columns\TextColumn::make('created_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+            Tables\Columns\TextColumn::make('updated_at')
+                ->dateTime()
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+        ])
             ->filters([
                 //
             ])

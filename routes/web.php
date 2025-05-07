@@ -17,9 +17,16 @@ Route::get('/zip', function () {
 Route::get('/info', [InfoController::class,  'index'])->name('info');
 
 
-Route::view('filament.dashboard.pages.dashboard', 'dashboard')
+Route::view('dashboard', 'dashboard')
 ->middleware(['auth', 'verified'])
 ->name('dashboard'); 
+
+Route::view('filament.personal.pages.personal', 'personal')
+->middleware(['auth', 'verified'])
+->name('personal'); 
+Route::view('filament.personal.pages.personal.login', 'personal')
+->middleware(['auth', 'verified'])
+->name('login');  
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');
